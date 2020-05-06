@@ -196,32 +196,32 @@ export default class LocalVideo extends SmallVideo {
      * Builds the context menu for the local video.
      */
     _buildContextMenu() {
-        $.contextMenu({
-            selector: `#${this.videoSpanId}`,
-            zIndex: 10000,
-            items: {
-                flip: {
-                    name: 'Flip',
-                    callback: () => {
-                        const { store } = APP;
-                        const val = !store.getState()['features/base/settings']
-                        .localFlipX;
+        // $.contextMenu({
+        //     selector: `#${this.videoSpanId}`,
+        //     zIndex: 10000,
+        //     items: {
+        //         flip: {
+        //             name: 'Flip',
+        //             callback: () => {
+        //                 const { store } = APP;
+        //                 const val = !store.getState()['features/base/settings']
+        //                 .localFlipX;
 
-                        this.setFlipX(val);
-                        store.dispatch(updateSettings({
-                            localFlipX: val
-                        }));
-                    }
-                }
-            },
-            events: {
-                show(options) {
-                    options.items.flip.name
-                        = APP.translation.generateTranslationHTML(
-                            'videothumbnail.flip');
-                }
-            }
-        });
+        //                 this.setFlipX(val);
+        //                 store.dispatch(updateSettings({
+        //                     localFlipX: val
+        //                 }));
+        //             }
+        //         }
+        //     },
+        //     events: {
+        //         show(options) {
+        //             options.items.flip.name
+        //                 = APP.translation.generateTranslationHTML(
+        //                     'videothumbnail.flip');
+        //         }
+        //     }
+        // });
     }
 
     /**

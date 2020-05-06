@@ -28,6 +28,7 @@ import {
     setTileView,
     shouldDisplayTileView
 } from '../../../react/features/video-layout';
+import styled from 'styled-components';
 /* eslint-enable no-unused-vars */
 
 const logger = require('jitsi-meet-logger').getLogger(__filename);
@@ -71,6 +72,11 @@ const DISPLAY_VIDEO_WITH_NAME = 3;
  */
 const DISPLAY_AVATAR_WITH_NAME = 4;
 
+let UpdateIndicatorsWrapper = styled.div`
+    & > div {
+        background: transparent!important;
+    }
+`;
 
 /**
  *
@@ -713,8 +719,8 @@ export default class SmallVideo {
         ReactDOM.render(
             <Provider store = { APP.store }>
                 <I18nextProvider i18n = { i18next }>
-                    <div>
-                        <AtlasKitThemeProvider mode = 'dark'>
+                    <UpdateIndicatorsWrapper>
+                        <AtlasKitThemeProvider mode = 'light'>
                             { this._showConnectionIndicator
                                 ? <ConnectionIndicator
                                     alwaysVisible = { showConnectionIndicator }
@@ -735,7 +741,7 @@ export default class SmallVideo {
                                     tooltipPosition = { tooltipPosition } />
                                 : null }
                         </AtlasKitThemeProvider>
-                    </div>
+                    </UpdateIndicatorsWrapper>
                 </I18nextProvider>
             </Provider>,
             indicatorToolbar

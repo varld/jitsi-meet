@@ -1,10 +1,11 @@
 <html itemscope itemtype="http://schema.org/Product" prefix="og: http://ogp.me/ns#" xmlns="http://www.w3.org/1999/html">
   <head>
-    <!--#include virtual="head.html" -->
+    <title>Varld Meet</title>
+    
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--#include virtual="base.html" -->
+    <base href="/" />
 
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="stylesheet" href="css/all.css">
@@ -141,20 +142,615 @@
         window.addEventListener(
             'error', loadErrHandler, true /* capture phase type of listener */);
     </script>
-    <script><!--#include virtual="/config.js" --></script><!-- adapt to your needs, i.e. set hosts and bosh path -->
-    <!--#include virtual="connection_optimization/connection_optimization.html" -->
-    <script src="libs/do_external_connect.min.js?v=1"></script>
-    <script><!--#include virtual="/interface_config.js" --></script>
-    <script><!--#include virtual="/logging_config.js" --></script>
-    <script src="libs/lib-jitsi-meet.min.js?v=139"></script>
-    <script src="libs/app.bundle.min.js?v=139"></script>
-    <!--#include virtual="title.html" -->
-    <!--#include virtual="plugin.head.html" -->
-    <!--#include virtual="static/welcomePageAdditionalContent.html" -->
-    <!--#include virtual="static/settingsToolbarAdditionalContent.html" -->
+    <script>var subdomain = "";
+if (subdomain) {
+    subdomain = subdomain.substr(0,subdomain.length-1).split('.').join('_').toLowerCase() + '.';
+}
+
+var config = {
+    hosts: {
+        domain: 'meet.jit.si',
+
+        muc: 'conference.'+subdomain+'meet.jit.si', // FIXME: use XEP-0030
+        focus: 'focus.meet.jit.si',
+    },
+    disableSimulcast: false,
+    enableRemb: false,
+    enableTcc: true,
+    resolution: 720,
+    constraints: {
+        video: {
+            aspectRatio: 16 / 9,
+            height: {
+                ideal: 720,
+                max: 720,
+                min: 180
+            },
+            width: {
+                ideal: 1280,
+                max: 1280,
+                min: 320
+            }
+        }
+    },
+    externalConnectUrl: '//meet.jit.si/http-pre-bind',
+    analytics: {
+
+    },
+    p2pStunServers: [
+        { urls: "stun:stun.l.google.com:19302" },
+        { urls: "stun:stun1.l.google.com:19302" },
+        { urls: "stun:stun2.l.google.com:19302" }
+    ],
+    //enableP2P: false, // flag to control P2P connections
+    // New P2P options
+    p2p: {
+        enabled: true,
+        preferH264: true,
+        disableH264: true,
+        useStunTurn: true, // use XEP-0215 to fetch STUN and TURN server for the P2P connection
+        stunServers: [
+            { urls: "stun:stun.l.google.com:19302" },
+            { urls: "stun:stun1.l.google.com:19302" },
+            { urls: "stun:stun2.l.google.com:19302" }
+        ]
+    },
+    useStunTurn: true, // use XEP-0215 to fetch STUN and TURN server for the JVB connection
+    useIPv6: false, // ipv6 support. use at your own risk
+    useNicks: false,
+    bosh: '//meet.jit.si/http-bind', // FIXME: use xep-0156 for that
+
+    //etherpad_base: 'https://alpha.jitsi.net/etherpad/p/',
+    clientNode: 'http://jitsi.org/jitsimeet', // The name of client node advertised in XEP-0115 'c' stanza
+    //deprecated desktop sharing settings, included only because older version of jitsi-meet require them
+    desktopSharing: 'ext', // Desktop sharing method. Can be set to 'ext', 'webrtc' or false to disable.
+    desktopSharingSources: ['screen', 'window'],
+    //new desktop sharing settings
+    desktopSharingChromeExtId: 'pgplkhlodppdcflanmijbnpgpjkegfgc', // Id of desktop streamer Chrome extension
+    desktopSharingChromeDisabled: false,
+    desktopSharingChromeSources: ['screen', 'window', 'tab'],
+    desktopSharingChromeMinExtVersion: '0.1.3', // Required version of Chrome extension
+    desktopSharingFirefoxExtId: "jidesha@alpha.jitsi.net",
+    desktopSharingFirefoxDisabled: true,
+    desktopSharingFirefoxMaxVersionExtRequired: '0',
+    desktopSharingFirefoxExtensionURL: "",
+    useRoomAsSharedDocumentName: false,
+    enableLipSync: false, // Disables lip-sync everywhere.
+    disableRtx: false, // Enables RTX everywhere
+    enableRtpStats: false, // Enables RTP stats processing
+    enableStatsID: true,
+    openBridgeChannel: 'websocket', // One of true, 'datachannel', or 'websocket'
+    channelLastN: -1, // The default value of the channel attribute last-n.
+    minHDHeight: 540,
+    startBitrate: "800",
+    disableAudioLevels: false,
+    useRtcpMux: true,
+    useBundle: true,
+    disableSuspendVideo: true,
+    stereo: true,
+    forceJVB121Ratio:  -1,
+    enableTalkWhileMuted: true,
+
+    hiddenDomain: 'recorder.alpha.jitsi.net',
+    transcribingEnabled: false,
+    enableRecording: true,
+    liveStreamingEnabled: true,
+    fileRecordingsEnabled: false,
+    fileRecordingsServiceEnabled: false,
+    fileRecordingsServiceSharingEnabled: false,
+    requireDisplayName: false,
+    recordingType: 'jibri',
+    enableWelcomePage: true,
+    isBrand: false,
+    logStats: false,
+// To enable sending statistics to callstats.io you should provide Applicaiton ID and Secret.
+    callStatsID: "294674397",//Application ID for callstats.io API
+    callStatsSecret: "9IJJTtOdheZs:MHov7tz0Gc3h/6NYXiNVCqA1tpTmKPH0AdXTYtAKVRY=",//Secret for callstats.io API
+    dialInNumbersUrl: 'https://api.jitsi.net/phoneNumberList',
+    dialInConfCodeUrl:  'https://api.jitsi.net/conferenceMapper',
+
+    dialOutCodesUrl:  'https://api.jitsi.net/countrycodes',
+    dialOutAuthUrl: 'https://api.jitsi.net/authorizephone',
+    peopleSearchUrl: 'https://api.jitsi.net/directorySearch',
+    inviteServiceUrl: 'https://api.jitsi.net/conferenceInvite',
+    inviteServiceCallFlowsUrl: 'https://api.jitsi.net/conferenceinvitecallflows',
+    peopleSearchQueryTypes: ['user','conferenceRooms'],
+    startAudioMuted: 9,
+    startVideoMuted: 9,
+    enableUserRolesBasedOnToken: false,
+    hepopAnalyticsUrl: "",
+    hepopAnalyticsEvent: {
+        product: "lib-jitsi-meet",
+        subproduct: "alpha",
+        name: "jitsi.page.load.failed",
+        action: "page.load.failed",
+        actionSubject: "page.load",
+        type: "page.load.failed",
+        source: "page.load",
+        attributes: {
+            type: "operational",
+            source: 'page.load'
+        },
+        server: "alpha.jitsi.net"
+    },
+    deploymentInfo: {
+        environment: 'alpha',
+        envType: 'dev',
+        releaseNumber: '',
+        shard: 'all',
+        region: 'us-west-2',
+        userRegion: '',
+        crossRegion: (!'' || 'us-west-2' === 'default_region') ? 0 : 1
+    },
+    rttMonitor: {
+        enabled: false,
+        initialDelay: 30000,
+        getStatsInterval: 10000,
+        analyticsInterval: 60000,
+        stunServers: {"ap-se-1": "all-ap-se-1-turn.jitsi.net:443", "ap-se-2": "all-ap-se-2-turn.jitsi.net:443", "eu-central-1": "all-eu-central-1-turn.jitsi.net:443", "eu-west-1": "all-eu-west-1-turn.jitsi.net:443", "us-east-1": "all-us-east-1-turn.jitsi.net:443", "us-west-2": "all-us-west-2-turn.jitsi.net:443"}
+    },
+    abTesting: {
+    },
+    testing: {
+        octo: {
+            probability: 0
+        }
+    }
+};
+
+// var subdomain = "";
+// if (subdomain) {
+//     subdomain = subdomain.substr(0,subdomain.length-1).split('.').join('_').toLowerCase() + '.';
+// }
+// var config = {
+//     hosts: {
+//         domain: 'alpha.jitsi.net',
+
+//         muc: 'conference.'+subdomain+'alpha.jitsi.net', // FIXME: use XEP-0030
+//         focus: 'focus.alpha.jitsi.net',
+//     },
+//     disableSimulcast: false,
+//     enableRemb: false,
+//     enableTcc: true,
+//     resolution: 720,
+//     constraints: {
+//         video: {
+//             aspectRatio: 16 / 9,
+//             height: {
+//                 ideal: 720,
+//                 max: 720,
+//                 min: 180
+//             },
+//             width: {
+//                 ideal: 1280,
+//                 max: 1280,
+//                 min: 320
+//             }
+//         }
+//     },
+//     externalConnectUrl: '//alpha.jitsi.net/http-pre-bind',
+// analytics: {
+//             },
+//     p2pStunServers: [
+//         { urls: "stun:stun.l.google.com:19302" },
+//         { urls: "stun:stun1.l.google.com:19302" },
+//         { urls: "stun:stun2.l.google.com:19302" }
+//     ],
+//     //enableP2P: false, // flag to control P2P connections
+//     // New P2P options
+//     p2p: {
+//         enabled: true,
+//         preferH264: true,
+//         disableH264: true,
+//         useStunTurn: true, // use XEP-0215 to fetch STUN and TURN server for the P2P connection
+//         stunServers: [
+//             { urls: "stun:stun.l.google.com:19302" },
+//             { urls: "stun:stun1.l.google.com:19302" },
+//             { urls: "stun:stun2.l.google.com:19302" }
+//         ]
+//     },
+//     useStunTurn: true, // use XEP-0215 to fetch STUN and TURN server for the JVB connection
+//     useIPv6: false, // ipv6 support. use at your own risk
+//     useNicks: false,
+//     bosh: '//alpha.jitsi.net/http-bind', // FIXME: use xep-0156 for that
+
+//     //etherpad_base: 'https://alpha.jitsi.net/etherpad/p/',
+//     clientNode: 'http://jitsi.org/jitsimeet', // The name of client node advertised in XEP-0115 'c' stanza
+//     //deprecated desktop sharing settings, included only because older version of jitsi-meet require them
+//     desktopSharing: 'ext', // Desktop sharing method. Can be set to 'ext', 'webrtc' or false to disable.
+//     chromeExtensionId: 'pgplkhlodppdcflanmijbnpgpjkegfgc', // Id of desktop streamer Chrome extension
+//     desktopSharingSources: ['screen', 'window'],
+//     //new desktop sharing settings
+//     desktopSharingChromeExtId: 'pgplkhlodppdcflanmijbnpgpjkegfgc', // Id of desktop streamer Chrome extension
+//     desktopSharingChromeDisabled: false,
+//     desktopSharingChromeSources: ['screen', 'window', 'tab'],
+//     desktopSharingChromeMinExtVersion: '0.1.3', // Required version of Chrome extension
+//     desktopSharingFirefoxExtId: "jidesha@alpha.jitsi.net",
+//     desktopSharingFirefoxDisabled: true,
+//     desktopSharingFirefoxMaxVersionExtRequired: '0',
+//     desktopSharingFirefoxExtensionURL: "",
+//     useRoomAsSharedDocumentName: false,
+//     enableLipSync: false, // Disables lip-sync everywhere.
+//     disableRtx: false, // Enables RTX everywhere
+//     enableRtpStats: false, // Enables RTP stats processing
+//     enableStatsID: true,
+//     openBridgeChannel: 'websocket', // One of true, 'datachannel', or 'websocket'
+//     channelLastN: -1, // The default value of the channel attribute last-n.
+//     minHDHeight: 540,
+//     startBitrate: "800",
+//     disableAudioLevels: false,
+//     useRtcpMux: true,
+//     useBundle: true,
+//     disableSuspendVideo: true,
+//     stereo: true,
+//     forceJVB121Ratio:  -1,
+//     enableTalkWhileMuted: true,
+
+//     hiddenDomain: 'recorder.alpha.jitsi.net',
+//     transcribingEnabled: false,
+//     enableRecording: true,
+//     liveStreamingEnabled: true,
+//     fileRecordingsEnabled: false,
+//     fileRecordingsServiceEnabled: false,
+//     fileRecordingsServiceSharingEnabled: false,
+//     requireDisplayName: false,
+//     recordingType: 'jibri',
+//     enableWelcomePage: true,
+//     isBrand: false,
+//     logStats: false,
+// // To enable sending statistics to callstats.io you should provide Applicaiton ID and Secret.
+//     callStatsID: "294674397",//Application ID for callstats.io API
+//     callStatsSecret: "9IJJTtOdheZs:MHov7tz0Gc3h/6NYXiNVCqA1tpTmKPH0AdXTYtAKVRY=",//Secret for callstats.io API
+//     dialInNumbersUrl: 'https://api.jitsi.net/phoneNumberList',
+//     dialInConfCodeUrl:  'https://api.jitsi.net/conferenceMapper',
+
+//     dialOutCodesUrl:  'https://api.jitsi.net/countrycodes',
+//     dialOutAuthUrl: 'https://api.jitsi.net/authorizephone',
+//     peopleSearchUrl: 'https://api.jitsi.net/directorySearch',
+//     inviteServiceUrl: 'https://api.jitsi.net/conferenceInvite',
+//     inviteServiceCallFlowsUrl: 'https://api.jitsi.net/conferenceinvitecallflows',
+//     peopleSearchQueryTypes: ['user','conferenceRooms'],
+//     startAudioMuted: 9,
+//     startVideoMuted: 9,
+//     enableUserRolesBasedOnToken: false,
+//     hepopAnalyticsUrl: "",
+//     hepopAnalyticsEvent: {
+//         product: "lib-jitsi-meet",
+//         subproduct: "alpha",
+//         name: "jitsi.page.load.failed",
+//         action: "page.load.failed",
+//         actionSubject: "page.load",
+//         type: "page.load.failed",
+//         source: "page.load",
+//         attributes: {
+//             type: "operational",
+//             source: 'page.load'
+//         },
+//         server: "alpha.jitsi.net"
+//     },
+//     deploymentInfo: {
+//         environment: 'alpha',
+//         envType: 'dev',
+//         releaseNumber: '',
+//         shard: 'all',
+//         region: 'us-west-2',
+//         userRegion: '',
+//         crossRegion: (!'' || 'us-west-2' === 'default_region') ? 0 : 1
+//     },
+//     rttMonitor: {
+//         enabled: false,
+//         initialDelay: 30000,
+//         getStatsInterval: 10000,
+//         analyticsInterval: 60000,
+//         stunServers: {"ap-se-1": "all-ap-se-1-turn.jitsi.net:443", "ap-se-2": "all-ap-se-2-turn.jitsi.net:443", "eu-central-1": "all-eu-central-1-turn.jitsi.net:443", "eu-west-1": "all-eu-west-1-turn.jitsi.net:443", "us-east-1": "all-us-east-1-turn.jitsi.net:443", "us-west-2": "all-us-west-2-turn.jitsi.net:443"}
+//     },
+//     abTesting: {
+//     },
+//     testing: {
+//         octo: {
+//             probability: 0
+//         }
+//     }
+// };
+</script>
+    <script src="/libs/external_connect.js?v=1"></script>
+    <script src="/libs/do_external_connect.js?v=1"></script>
+    <script>/* eslint-disable no-unused-vars, no-var, max-len */
+
+var interfaceConfig = {
+    // TO FIX: this needs to be handled from SASS variables. There are some
+    // methods allowing to use variables both in css and js.
+    DEFAULT_BACKGROUND: '#000000',
+
+    /**
+     * Whether or not the blurred video background for large video should be
+     * displayed on browsers that can support it.
+     */
+    DISABLE_VIDEO_BACKGROUND: false,
+
+    INITIAL_TOOLBAR_TIMEOUT: 20000,
+    TOOLBAR_TIMEOUT: 4000,
+    TOOLBAR_ALWAYS_VISIBLE: false,
+    DEFAULT_REMOTE_DISPLAY_NAME: 'Someone else',
+    DEFAULT_LOCAL_DISPLAY_NAME: 'You',
+    SHOW_JITSI_WATERMARK: false,
+    JITSI_WATERMARK_LINK: 'https://jitsi.org',
+
+    // if watermark is disabled by default, it can be shown only for guests
+    SHOW_WATERMARK_FOR_GUESTS: false,
+    SHOW_BRAND_WATERMARK: false,
+    BRAND_WATERMARK_LINK: '',
+    SHOW_POWERED_BY: false,
+    SHOW_DEEP_LINKING_IMAGE: false,
+    GENERATE_ROOMNAMES_ON_WELCOME_PAGE: true,
+    DISPLAY_WELCOME_PAGE_CONTENT: true,
+    DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+    APP_NAME: 'Just Meet',
+    NATIVE_APP_NAME: 'Just Meet',
+    PROVIDER_NAME: 'Varld',
+    LANG_DETECTION: true, // Allow i18n to detect the system language
+    INVITATION_POWERED_BY: false,
+
+    /**
+     * If we should show authentication block in profile
+     */
+    AUTHENTICATION_ENABLE: true,
+
+    /**
+     * The name of the toolbar buttons to display in the toolbar. If present,
+     * the button will display. Exceptions are "livestreaming" and "recording"
+     * which also require being a moderator and some values in config.js to be
+     * enabled. Also, the "profile" button will not display for user's with a
+     * jwt.
+     */
+    TOOLBAR_BUTTONS: [
+        // 'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+        // 'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
+        // 'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+        // 'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+        // 'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
+        // 'e2ee'
+    ],
+
+    SETTINGS_SECTIONS: [ /*'devices', 'language', 'moderator', 'profile', 'calendar'*/ ],
+
+    // Determines how the video would fit the screen. 'both' would fit the whole
+    // screen, 'height' would fit the original video height to the height of the
+    // screen, 'width' would fit the original video width to the width of the
+    // screen respecting ratio.
+    VIDEO_LAYOUT_FIT: 'both',
+
+    /**
+     * Whether to only show the filmstrip (and hide the toolbar).
+     */
+    filmStripOnly: false,
+
+    /**
+     * Whether to show thumbnails in filmstrip as a column instead of as a row.
+     */
+    VERTICAL_FILMSTRIP: true,
+
+    // A html text to be shown to guests on the close page, false disables it
+    CLOSE_PAGE_GUEST_HINT: false,
+    SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+    RANDOM_AVATAR_URL_PREFIX: false,
+    RANDOM_AVATAR_URL_SUFFIX: false,
+    FILM_STRIP_MAX_HEIGHT: 200,
+
+    // Enables feedback star animation.
+    ENABLE_FEEDBACK_ANIMATION: false,
+    DISABLE_FOCUS_INDICATOR: false,
+    DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
+
+    /**
+     * Whether the speech to text transcription subtitles panel is disabled.
+     * If {@code undefined}, defaults to {@code false}.
+     *
+     * @type {boolean}
+     */
+    DISABLE_TRANSCRIPTION_SUBTITLES: false,
+
+    /**
+     * Whether the ringing sound in the call/ring overlay is disabled. If
+     * {@code undefined}, defaults to {@code false}.
+     *
+     * @type {boolean}
+     */
+    DISABLE_RINGING: false,
+    AUDIO_LEVEL_PRIMARY_COLOR: 'rgba(255,255,255,0.4)',
+    AUDIO_LEVEL_SECONDARY_COLOR: 'rgba(255,255,255,0.2)',
+    POLICY_LOGO: null,
+    LOCAL_THUMBNAIL_RATIO: 16 / 9, // 16:9
+    REMOTE_THUMBNAIL_RATIO: 1, // 1:1
+    // Documentation reference for the live streaming feature.
+    LIVE_STREAMING_HELP_LINK: 'https://jitsi.org/live',
+
+    /**
+     * Whether the mobile app Jitsi Meet is to be promoted to participants
+     * attempting to join a conference in a mobile Web browser. If
+     * {@code undefined}, defaults to {@code true}.
+     *
+     * @type {boolean}
+     */
+    MOBILE_APP_PROMO: false,
+
+    /**
+     * Maximum coeficient of the ratio of the large video to the visible area
+     * after the large video is scaled to fit the window.
+     *
+     * @type {number}
+     */
+    MAXIMUM_ZOOMING_COEFFICIENT: 1.3,
+
+    /*
+     * If indicated some of the error dialogs may point to the support URL for
+     * help.
+     */
+    SUPPORT_URL: 'https://community.jitsi.org/',
+
+    /**
+     * Whether the connection indicator icon should hide itself based on
+     * connection strength. If true, the connection indicator will remain
+     * displayed while the participant has a weak connection and will hide
+     * itself after the CONNECTION_INDICATOR_HIDE_TIMEOUT when the connection is
+     * strong.
+     *
+     * @type {boolean}
+     */
+    CONNECTION_INDICATOR_AUTO_HIDE_ENABLED: true,
+
+    /**
+     * How long the connection indicator should remain displayed before hiding.
+     * Used in conjunction with CONNECTION_INDICATOR_AUTOHIDE_ENABLED.
+     *
+     * @type {number}
+     */
+    CONNECTION_INDICATOR_AUTO_HIDE_TIMEOUT: 5000,
+
+    /**
+     * If true, hides the connection indicators completely.
+     *
+     * @type {boolean}
+     */
+    CONNECTION_INDICATOR_DISABLED: false,
+
+    /**
+     * If true, hides the video quality label indicating the resolution status
+     * of the current large video.
+     *
+     * @type {boolean}
+     */
+    VIDEO_QUALITY_LABEL_DISABLED: false,
+
+    /**
+     * If true, will display recent list
+     *
+     * @type {boolean}
+     */
+    RECENT_LIST_ENABLED: true,
+
+    // Names of browsers which should show a warning stating the current browser
+    // has a suboptimal experience. Browsers which are not listed as optimal or
+    // unsupported are considered suboptimal. Valid values are:
+    // chrome, chromium, edge, electron, firefox, nwjs, opera, safari
+    OPTIMAL_BROWSERS: [ 'chrome', 'chromium', 'firefox', 'nwjs', 'electron', 'safari' ],
+
+    // Browsers, in addition to those which do not fully support WebRTC, that
+    // are not supported and should show the unsupported browser page.
+    UNSUPPORTED_BROWSERS: [],
+
+    /**
+     * A UX mode where the last screen share participant is automatically
+     * pinned. Valid values are the string "remote-only" so remote participants
+     * get pinned but not local, otherwise any truthy value for all participants,
+     * and any falsy value to disable the feature.
+     *
+     * Note: this mode is experimental and subject to breakage.
+     */
+    AUTO_PIN_LATEST_SCREEN_SHARE: 'remote-only',
+
+    /**
+     * If true, presence status: busy, calling, connected etc. is not displayed.
+     */
+    DISABLE_PRESENCE_STATUS: false,
+
+    /**
+     * If true, notifications regarding joining/leaving are no longer displayed.
+     */
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+
+    /**
+    * Decides whether the chrome extension banner should be rendered on the landing page and during the meeting.
+    * If this is set to false, the banner will not be rendered at all. If set to true, the check for extension(s)
+    * being already installed is done before rendering.
+    */
+    SHOW_CHROME_EXTENSION_BANNER: false,
+
+    /**
+     * When enabled, the kick participant button will not be presented for users without a JWT
+     */
+    // HIDE_KICK_BUTTON_FOR_GUESTS: false,
+
+    /**
+     * How many columns the tile view can expand to. The respected range is
+     * between 1 and 5.
+     */
+    // TILE_VIEW_MAX_COLUMNS: 5,
+
+    /**
+     * Specify custom URL for downloading android mobile app.
+     */
+    // MOBILE_DOWNLOAD_LINK_ANDROID: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
+
+    /**
+     * Specify URL for downloading ios mobile app.
+     */
+    // MOBILE_DOWNLOAD_LINK_IOS: 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905',
+
+    /**
+     * Specify mobile app scheme for opening the app from the mobile browser.
+     */
+    // APP_SCHEME: 'org.jitsi.meet',
+
+    /**
+     * Specify the Android app package name.
+     */
+    // ANDROID_APP_PACKAGE: 'org.jitsi.meet',
+
+    /**
+     * Override the behavior of some notifications to remain displayed until
+     * explicitly dismissed through a user action. The value is how long, in
+     * milliseconds, those notifications should remain displayed.
+     */
+    ENFORCE_NOTIFICATION_AUTO_DISMISS_TIMEOUT: 0,
+
+    // List of undocumented settings
+    /**
+     INDICATOR_FONT_SIZES
+     MOBILE_DYNAMIC_LINK
+     PHONE_NUMBER_REGEX
+    */
+
+    // Allow all above example options to include a trailing comma and
+    // prevent fear when commenting out the last value.
+    makeJsonParserHappy: 'even if last key had a trailing comma'
+
+    // no configuration value should follow this line.
+};
+
+/* eslint-enable no-unused-vars, no-var, max-len */
+</script>
+    <script>/* eslint-disable no-unused-vars, no-var */
+
+// Logging configuration
+var loggingConfig = {
+    // default log level for the app and lib-jitsi-meet
+    defaultLogLevel: 'trace',
+
+    // Option to disable LogCollector (which stores the logs on CallStats)
+    // disableLogCollector: true,
+
+    // The following are too verbose in their logging with the
+    // {@link #defaultLogLevel}:
+    'modules/RTC/TraceablePeerConnection.js': 'info',
+    'modules/statistics/CallStats.js': 'info',
+    'modules/xmpp/strophe.util.js': 'log'
+};
+
+/* eslint-enable no-unused-vars, no-var */
+
+// XXX Web/React server-includes logging_config.js into index.html.
+// Mobile/react-native requires it in react/features/base/logging. For the
+// purposes of the latter, (try to) export loggingConfig. The following
+// detection of a module system is inspired by webpack.
+typeof module === 'object'
+    && typeof exports === 'object'
+    && (module.exports = loggingConfig);
+</script>
+    <script src="/libs/lib-jitsi-meet.min.js?v=139"></script>
+    <script src="/libs/app.bundle.js?v=139"></script>
   </head>
   <body>
-    <!--#include virtual="body.html" -->
     <div id="react"></div>
   </body>
 </html>

@@ -1,22 +1,19 @@
 .inlay {
-    margin-top: 14%;
     @include border-radius(4px);
     padding: 40px 38px 44px;
-    color: #fff;
-    background: $inlayColorBg;
+    color: black;
     text-align: center;
 
     &__title {
         margin: 17px 0;
         padding-bottom: 17px;
-        color: $popoverFontColor;
+        color: black;
         font-size: 21px;
         letter-spacing: 0.3px;
-        border-bottom: 1px solid $inlayBorderColor;
     }
 
     &__text {
-        color: $popoverFontColor;
+        color: black;
         display: block;
         margin-top: 22px;
         font-size: 16px;

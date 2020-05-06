@@ -1,10 +1,10 @@
 .vertical-filmstrip .filmstrip {
-    &.hide-videos {
-        .remote-videos-container {
-            opacity: 0;
-            pointer-events: none;
-        }
-    }
+    // &.hide-videos {
+    //     .remote-videos-container {
+    //         opacity: 0;
+    //         pointer-events: none;
+    //     }
+    // }
 
     /*
      * Firefox sets flex items to min-height: auto and min-width: auto,
@@ -26,7 +26,7 @@
     flex-direction: column-reverse;
     height: 100%;
     width: 100%;
-    padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
+    padding: 20px 17px 20px 20px;
     /**
      * fixed positioning is necessary for remote menus and tooltips to pop
      * out of the scrolling filmstrip. AtlasKit dialogs and tooltips use
@@ -53,6 +53,7 @@
         position:relative;
         right: 0;
         width: auto;
+        margin-top: -2px;
 
         &.hidden {
             bottom: auto;
@@ -76,11 +77,11 @@
      */
     #filmstripLocalVideo {
         align-self: initial;
-        bottom: 5px;
         display: flex;
         flex-direction: column-reverse;
         height: auto;
         justify-content: flex-start;
+        top: 2px!important;
 
         #filmstripLocalVideoThumbnail {
             width: calc(100% - 15px);
@@ -107,14 +108,14 @@
 
         display: flex;
         flex: 1;
-        flex-direction: column-reverse;
+        flex-direction: column;
         height: auto;
         overflow-x: hidden;
         overflow-y: scroll;
 
         #filmstripRemoteVideosContainer {
             @include minHWAutoFix();
-            flex-direction: column-reverse;
+            flex-direction: column;
             overflow: visible;
             width: calc(100% - 8px); // 8px for margin + border of the thumbnails
 

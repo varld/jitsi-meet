@@ -2,16 +2,31 @@
 * Initialize
 **/
 
+.remote-popover {
+    background: white;
+}
+
 .popupmenu {
     min-width: 75px;
     text-align: left;
-    padding: 0px;
-    width: 180px;
+    padding: 15px 15px 20px 15px;
+    // width: 180px;
     white-space: nowrap;
+    background: white;
+    border-radius: 6px;
 
     &__item {
         list-style-type: none;
-        height: 35px;
+        padding: 8px 12px;
+        color: #666!important;
+        border-radius: 4px;
+        transition: all .3s;
+        margin-bottom: 10px;
+
+        &:not(.no-bg):hover {
+            background-color: #efefef;
+            color: black!important;
+        }
     }
 
     // Link Appearance
@@ -25,12 +40,8 @@
         width: 100%;
         cursor: pointer;
         padding: 0 5px;
-        color: $popupMenuColor;
-
-        &:hover {
-            background-color: $popupMenuHoverBackground;
-            color: $popupMenuHoverColor;
-        }
+        color: #666!important;
+        border-radius: 4px;
 
         &.disabled {
             pointer-events: none;
@@ -67,15 +78,15 @@
                 width: 100%;
 
                 &::-webkit-slider-runnable-track {
-                    background-color: $popupSliderColor;
+                    background-color: #ddd;
                 }
 
                 &::-moz-range-track {
-                    background-color: $popupSliderColor;
+                    background-color: #ddd;
                 }
 
                 &::-ms-fill-lower {
-                    background-color: $popupSliderColor;
+                    background-color: #ddd;
                 }
             }
         }

@@ -150,18 +150,16 @@
     position: absolute;
     top: 30px;
     right: 30px;
-    transition: right 0.5s;
+    transition: right 0.7s ease-out;
     z-index: $zindex3;
 
     .circular-label {
-        color: white;
+        color: #666;
         font-weight: bold;
         margin-left: 8px;
         opacity: 0.8;
-    }
-
-    .circular-label {
-        background: #B8C7E0;
+        background: #efefef;
+        border: solid #ccc 1px;
     }
 
     .circular-label.e2ee {

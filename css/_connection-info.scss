@@ -10,6 +10,9 @@
 .connection-info
 {
     @extend %connection-info;
+    background: white;
+    padding: 20px 10px 15px 10px;
+    color: black;
 
     /**
      * Apply negative margin to reduce the appearance of padding in AtlasKit
@@ -49,6 +52,9 @@
         display: block;
         margin: 10px auto;
         text-align: center;
-        width: 90px;
+    }
+
+    * {
+        color: black!important;
     }
 }

@@ -95,16 +95,16 @@
  */
 .vertical-filmstrip .large-video-labels {
     &.with-filmstrip {
-        right: 150px;
+        right: 230px;
     }
 
     &.with-filmstrip.opening {
-        transition: 0.9s;
-        transition-timing-function: ease-in-out;
+        transition: .8s;
+        transition-timing-function: ease-out;
     }
 
     &.without-filmstrip {
-        transition: 1.2s ease-in-out;
+        transition: 1.5s ease-in-out;
         transition-delay: 0.1s;
     }
 }

@@ -9,7 +9,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 10px 5px;
+    padding: 20px;
     @extend %align-right;
     transition: bottom .3s;
     z-index: $filmstripVideosZ;
@@ -55,7 +55,6 @@
         &#filmstripLocalVideo {
             align-self: flex-end;
             display: block;
-            margin-bottom: 8px;
         }
 
         &.hidden {
@@ -111,10 +110,6 @@
             overflow-y: hidden;
             overflow-x: scroll;
         }
-    }
-
-    .videocontainer {
-        margin-bottom: 10px;
     }
 }
 

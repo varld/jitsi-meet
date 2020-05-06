@@ -232,6 +232,7 @@ export class VideoContainer extends LargeContainer {
         this.wasVideoRendered = false;
 
         this.$wrapper = $('#largeVideoWrapper');
+        this.$border = $('.largeVideoBorder');
 
         /**
          * FIXME: currently using parent() because I can't come up with name
@@ -287,7 +288,6 @@ export class VideoContainer extends LargeContainer {
      */
     getStreamSize() {
         const video = this.$video[0];
-
 
         return {
             width: video.videoWidth,
@@ -403,6 +403,9 @@ export class VideoContainer extends LargeContainer {
 
         this.positionRemoteStatusMessages();
 
+        containerWidth = containerWidth - 260;
+        containerHeight = containerHeight - 40;
+
         const [ width, height ] = this._getVideoSize(containerWidth, containerHeight);
 
         if (width === 0 || height === 0) {
@@ -438,6 +441,15 @@ export class VideoContainer extends LargeContainer {
         }, {
             queue: false,
             duration: animate ? 500 : 0
+        });
+
+        this.$border.animate({
+            display: horizontalIndent < 0 ? 'block' : 'none',
+            left: Math.abs(horizontalIndent),
+            right: Math.abs(horizontalIndent)
+        }, {
+            queue: false,
+            duration: 0
         });
     }
 
@@ -606,9 +618,7 @@ export class VideoContainer extends LargeContainer {
      * @returns {void}
      */
     setLargeVideoBackground(isAvatar) {
-        $('#largeVideoContainer').css('background',
-            this.videoType === VIDEO_CONTAINER_TYPE && !isAvatar
-                ? '#000' : interfaceConfig.DEFAULT_BACKGROUND);
+        // $('#largeVideoContainer').css('background', '#000');
     }
 
     /**
@@ -630,6 +640,8 @@ export class VideoContainer extends LargeContainer {
      * @returns {void}
      */
     _updateBackground() {
+        return null;
+
         // Do not the background display on browsers that might experience
         // performance issues from the presence of the background or if
         // explicitly disabled.

@@ -34,16 +34,19 @@ const config = {
     devServer: {
         https: true,
         inline: true,
-        proxy: {
-            '/': {
-                bypass: devServerProxyBypass,
-                secure: false,
-                target: devServerProxyTarget,
-                headers: {
-                    'Host': new URL(devServerProxyTarget).host
-                }
-            }
+        historyApiFallback: {
+            index: './index.html'
         }
+        // proxy: {
+        //     '/': {
+        //         bypass: devServerProxyBypass,
+        //         secure: false,
+        //         target: devServerProxyTarget,
+        //         headers: {
+        //             'Host': new URL(devServerProxyTarget).host
+        //         }
+        //     }
+        // }
     },
     devtool: 'source-map',
     mode: minimize ? 'production' : 'development',

@@ -1,7 +1,9 @@
 // @flow
 
 import Tooltip from '@atlaskit/tooltip';
+import { TooltipPrimitive } from '@atlaskit/tooltip/dist/cjs/styled';
 import React from 'react';
+import styled from 'styled-components';
 
 import { translate } from '../../base/i18n';
 import { CircularLabel } from '../../base/label';
@@ -13,6 +15,17 @@ import AbstractVideoQualityLabel, {
     _abstractMapStateToProps,
     type Props as AbstractProps
 } from './AbstractVideoQualityLabel';
+
+const InlineDialog = styled(TooltipPrimitive)`
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-sizing: content-box; /* do not set this to border-box or it will break the overflow handling */
+  color: #333;
+  max-height: 300px;
+  max-width: 300px;
+  padding: 8px 14px;
+`;
 
 type Props = AbstractProps & {
 
@@ -70,6 +83,8 @@ export class VideoQualityLabel extends AbstractVideoQualityLabel<Props> {
      * @returns {ReactElement}
      */
     render() {
+        return null;
+
         const {
             _audioOnly,
             _labelKey,
@@ -77,7 +92,6 @@ export class VideoQualityLabel extends AbstractVideoQualityLabel<Props> {
             _videoTrack,
             t
         } = this.props;
-
 
         let className, labelContent, tooltipKey;
 
@@ -95,11 +109,12 @@ export class VideoQualityLabel extends AbstractVideoQualityLabel<Props> {
             tooltipKey = _tooltipKey;
         }
 
-
         return (
             <Tooltip
                 content = { t(tooltipKey) }
-                position = { 'left' }>
+                position = { 'left' }
+                component={ InlineDialog }
+            >
                 <CircularLabel
                     className = { className }
                     id = 'videoResolutionLabel'

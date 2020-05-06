@@ -1,6 +1,7 @@
 /* global interfaceConfig */
 
 import React from 'react';
+import styled from 'styled-components';
 
 import { translate } from '../../base/i18n';
 import { Watermarks } from '../../base/react';
@@ -12,6 +13,36 @@ import { SettingsButton, SETTINGS_TABS } from '../../settings';
 
 import { AbstractWelcomePage, _mapStateToProps } from './AbstractWelcomePage';
 import Tabs from './Tabs';
+
+let Wrapper = styled.div`
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 2rem;
+        color: black!important;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: black!important;
+    }
+
+    .inner {
+        margin: 0px auto;
+        max-width: 720px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .logo {
+        margin-bottom: 80px;
+    }
+`;
 
 /**
  * The pattern used to validate room name.
@@ -164,72 +195,21 @@ class WelcomePage extends AbstractWelcomePage {
         const showResponsiveText = this._shouldShowResponsiveText();
 
         return (
-            <div
-                className = { `welcome ${showAdditionalContent
-                    ? 'with-content' : 'without-content'}` }
-                id = 'welcome_page'>
-                <div className = 'welcome-watermark'>
-                    <Watermarks />
+            <Wrapper>
+                <div className="inner">
+                    <div className="logo">
+                        <svg width="100" height="100" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="13.5" y="13.5" width="473" height="473" fill="#FFB8B8" stroke="black" stroke-width="27"/>
+                            <path d="M250 125C225.277 125 201.11 132.331 180.554 146.066C159.998 159.801 143.976 179.324 134.515 202.165C125.054 225.005 122.579 250.139 127.402 274.386C132.225 298.634 144.13 320.907 161.612 338.388C179.093 355.87 201.366 367.775 225.614 372.598C249.861 377.421 274.995 374.946 297.835 365.485C320.676 356.024 340.199 340.002 353.934 319.446C367.669 298.89 375 274.723 375 250C375 233.585 371.767 217.33 365.485 202.165C359.203 186.999 349.996 173.219 338.388 161.612C326.781 150.004 313.001 140.797 297.835 134.515C282.67 128.233 266.415 125 250 125ZM250 150C257.532 150.049 265.036 150.93 272.375 152.625C270.202 157.53 266.853 161.823 262.625 165.125C259.875 167.25 256.875 169 253.875 170.875C244.378 175.551 236.37 182.779 230.75 191.75C224.593 204.582 221.92 218.808 223 233C223 250 223 260 211.125 268.875C194 282.25 167.875 274.75 151.625 268C150.563 262.058 150.019 256.036 150 250C150 223.478 160.536 198.043 179.289 179.289C198.043 160.536 223.478 150 250 150ZM162.5 297.5C170.668 299.623 179.062 300.756 187.5 300.875C201.62 301.263 215.455 296.857 226.75 288.375C248.125 271.625 248.125 250.125 248.125 232.875C247.177 222.891 248.768 212.829 252.75 203.625C256.368 198.699 261.188 194.783 266.75 192.25C270.724 189.928 274.564 187.382 278.25 184.625C286.018 178.489 292.05 170.432 295.75 161.25C313.337 170.248 327.865 184.254 337.5 201.5C319.625 204 294.25 209.875 289.25 233.125C288.121 238.68 287.535 244.332 287.5 250C287.905 256.336 286.656 262.668 283.875 268.375L282.625 270.5C274.5 284 265.375 299.375 277.75 320.5C279.25 323.125 280.875 325.625 282.5 328.125C285.827 331.968 288.07 336.628 289 341.625C276.706 347.044 263.435 349.894 250 350C232.045 349.91 214.446 344.988 199.05 335.751C183.653 326.513 171.028 313.3 162.5 297.5ZM311.625 329C309.463 324.009 306.826 319.237 303.75 314.75C302.375 312.75 301 310.75 299.75 308.625C294.875 300.125 296.625 296.125 304.5 283.625L305.75 281.5C310.649 272.151 312.978 261.669 312.5 251.125C312.487 246.933 312.864 242.748 313.625 238.625C315.625 229.5 335 227 347 226.125C351.85 244.981 351.047 264.848 344.69 283.251C338.333 301.655 326.704 317.782 311.25 329.625L311.625 329Z" fill="black"/>
+                        </svg>
+                    </div>
+
+                    <div className="main">
+                        <h1>Welcome to the Varld Meeting Platform.</h1>
+                        <p>Powered by <a href="https://jitsi.org">Jitsi Meet</a>. A big thank you to the Jitsi Community!</p>
+                    </div>
                 </div>
-                <div className = 'header'>
-                    <div className = 'welcome-page-settings'>
-                        <SettingsButton
-                            defaultTab = { SETTINGS_TABS.CALENDAR } />
-                        { showAdditionalToolbarContent
-                            ? <div
-                                className = 'settings-toolbar-content'
-                                ref = { this._setAdditionalToolbarContentRef } />
-                            : null
-                        }
-                    </div>
-                    <div className = 'header-image' />
-                    <div className = 'header-text'>
-                        <h1 className = 'header-text-title'>
-                            { t('welcomepage.title') }
-                        </h1>
-                        <p className = 'header-text-description'>
-                            { t('welcomepage.appDescription',
-                                { app: APP_NAME }) }
-                        </p>
-                    </div>
-                    <div id = 'enter_room'>
-                        <div className = 'enter-room-input-container'>
-                            <div className = 'enter-room-title'>
-                                { t('welcomepage.enterRoomTitle') }
-                            </div>
-                            <form onSubmit = { this._onFormSubmit }>
-                                <input
-                                    autoFocus = { true }
-                                    className = 'enter-room-input'
-                                    id = 'enter_room_field'
-                                    onChange = { this._onRoomChange }
-                                    pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                    placeholder = { this.state.roomPlaceholder }
-                                    ref = { this._setRoomInputRef }
-                                    title = { t('welcomepage.roomNameAllowedChars') }
-                                    type = 'text'
-                                    value = { this.state.room } />
-                            </form>
-                        </div>
-                        <div
-                            className = 'welcome-page-button'
-                            id = 'enter_room_button'
-                            onClick = { this._onFormSubmit }>
-                            {
-                                showResponsiveText
-                                    ? t('welcomepage.goSmall')
-                                    : t('welcomepage.go')
-                            }
-                        </div>
-                    </div>
-                    { this._renderTabs() }
-                </div>
-                { showAdditionalContent
-                    ? <div
-                        className = 'welcome-page-content'
-                        ref = { this._setAdditionalContentRef } />
-                    : null }
-            </div>
+            </Wrapper>
         );
     }
 

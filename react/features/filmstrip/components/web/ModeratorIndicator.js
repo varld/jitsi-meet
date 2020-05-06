@@ -29,6 +29,8 @@ class ModeratorIndicator extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
+        return null;
+
         return (
             <div className = 'moderator-icon right'>
                 <BaseIndicator

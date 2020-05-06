@@ -1,10 +1,11 @@
 // @flow
 
 import React, { Component } from 'react';
-import { isVideoSettingsButtonDisabled } from '../../functions';
+
 import { toggleVideoSettings, VideoSettingsPopup } from '../../../settings';
 import VideoMuteButton from '../VideoMuteButton';
 import JitsiMeetJS from '../../../base/lib-jitsi-meet/_';
+import { hasAvailableDevices } from '../../../base/devices';
 import { IconArrowDown } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { ToolboxButtonWithIcon } from '../../../base/toolbox';
@@ -24,9 +25,9 @@ type Props = {
     permissionPromptVisibility: boolean,
 
     /**
-     * If the button should be disabled
+     * If the user has any video devices.
      */
-    isDisabled: boolean,
+    hasDevices: boolean,
 
     /**
      * Flag controlling the visibility of the button.
@@ -48,8 +49,6 @@ type State = {
  * @returns {ReactElement}
  */
 class VideoSettingsButton extends Component<Props, State> {
-    _isMounted: boolean;
-
     /**
      * Initializes a new {@code VideoSettingsButton} instance.
      *
@@ -59,7 +58,6 @@ class VideoSettingsButton extends Component<Props, State> {
     constructor(props) {
         super(props);
 
-        this._isMounted = true;
         this.state = {
             hasPermissions: false
         };
@@ -75,7 +73,7 @@ class VideoSettingsButton extends Component<Props, State> {
             'video',
         );
 
-        this._isMounted && this.setState({
+        this.setState({
             hasPermissions
         });
     }
@@ -101,22 +99,13 @@ class VideoSettingsButton extends Component<Props, State> {
     }
 
     /**
-     * Implements React's {@link Component#componentWillUnmount}.
-     *
-     * @inheritdoc
-     */
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
-
-    /**
      * Implements React's {@link Component#render}.
      *
      * @inheritdoc
      */
     render() {
-        const { isDisabled, onVideoOptionsClick, visible } = this.props;
-        const iconDisabled = !this.state.hasPermissions || isDisabled;
+        const { hasDevices, onVideoOptionsClick, visible } = this.props;
+        const iconDisabled = !this.state.hasPermissions || !hasDevices;
 
         return visible ? (
             <VideoSettingsPopup>
@@ -139,7 +128,7 @@ class VideoSettingsButton extends Component<Props, State> {
  */
 function mapStateToProps(state) {
     return {
-        isDisabled: isVideoSettingsButtonDisabled(state),
+        hasDevices: hasAvailableDevices(state, 'videoInput'),
         permissionPromptVisibility: getMediaPermissionPromptVisibility(state)
     };
 }

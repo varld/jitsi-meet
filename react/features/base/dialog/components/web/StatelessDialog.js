@@ -122,7 +122,8 @@ class StatelessDialog extends Component<Props> {
                 onClose = { this._onDialogDismissed }
                 onDialogDismissed = { this._onDialogDismissed }
                 shouldCloseOnEscapePress = { true }
-                width = { width || 'medium' }>
+                width = { width || 'medium' }
+            >
                 <div
                     onKeyDown = { this._onKeyDown }
                     ref = { this._setDialogElement }>
@@ -261,7 +262,7 @@ class StatelessDialog extends Component<Props> {
 
         return (
             <Button
-                appearance = 'primary'
+                appearance = 'warning'
                 form = 'modal-dialog-form'
                 id = { OK_BUTTON_ID }
                 isDisabled = { this.props.okDisabled }

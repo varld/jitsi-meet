@@ -132,6 +132,7 @@ class RemoteVideoMenuTriggerButton extends Component<Props> {
 
         return (
             <Popover
+                className="remote-popover"
                 content = { content }
                 onPopoverOpen = { this._onShowRemoteMenu }
                 position = { this.props.menuPosition }>
@@ -214,11 +215,11 @@ class RemoteVideoMenuTriggerButton extends Component<Props> {
             );
         }
 
-        buttons.push(
-            <PrivateMessageMenuButton
-                key = 'privateMessage'
-                participantID = { participantID } />
-        );
+        // buttons.push(
+        //     <PrivateMessageMenuButton
+        //         key = 'privateMessage'
+        //         participantID = { participantID } />
+        // );
 
         if (onVolumeChange) {
             buttons.push(

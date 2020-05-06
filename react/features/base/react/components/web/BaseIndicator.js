@@ -2,9 +2,22 @@
 
 import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
+import { TooltipPrimitive } from '@atlaskit/tooltip/dist/cjs/styled';
+import styled from 'styled-components';
 
 import { translate } from '../../../i18n';
 import { Icon } from '../../../icons';
+
+const InlineDialog = styled(TooltipPrimitive)`
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-sizing: content-box; /* do not set this to border-box or it will break the overflow handling */
+  color: #333;
+  max-height: 300px;
+  max-width: 300px;
+  padding: 8px 14px;
+`;
 
 /**
  * The type of the React {@code Component} props of {@link BaseIndicator}.
@@ -105,7 +118,9 @@ class BaseIndicator extends Component<Props> {
             <div className = 'indicator-container'>
                 <Tooltip
                     content = { t(tooltipKey) }
-                    position = { tooltipPosition }>
+                    position = { tooltipPosition }
+                    component={ InlineDialog }
+                >
                     <span
                         className = { iconContainerClassName }
                         id = { id }>

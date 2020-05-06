@@ -161,4 +161,6 @@ const statsEmitter = {
     }
 };
 
+window.jitsiStats = statsEmitter;
+
 export default statsEmitter;

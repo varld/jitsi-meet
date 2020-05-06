@@ -80,8 +80,12 @@ export default class BaseApp extends Component<*, State> {
                 logger.error(err);
             })
             .then(() => new Promise(resolve => {
+                let store = this._createStore();
+
+                window.jitsiStore = store;
+
                 this.setState({
-                    store: this._createStore()
+                    store
                 }, resolve);
             }))
             .then(() => this.state.store.dispatch(appWillMount(this)))

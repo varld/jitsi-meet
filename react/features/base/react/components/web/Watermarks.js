@@ -118,6 +118,8 @@ class Watermarks extends Component<Props, State> {
      * @returns {ReactElement}
      */
     render() {
+        return <div></div>;
+
         return (
             <div>
                 {

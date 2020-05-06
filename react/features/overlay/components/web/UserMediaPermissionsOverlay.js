@@ -28,8 +28,6 @@ class UserMediaPermissionsOverlay extends AbstractUserMediaPermissionsOverlay {
         return (
             <OverlayFrame>
                 <div className = 'inlay'>
-                    <span className = 'inlay__icon icon-microphone' />
-                    <span className = 'inlay__icon icon-camera' />
                     <h3 className = 'inlay__title'>
                         {
                             t('startupoverlay.title',

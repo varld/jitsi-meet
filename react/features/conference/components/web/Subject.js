@@ -48,6 +48,8 @@ class Subject extends Component<Props> {
     render() {
         const { _showParticipantCount, _subject, _visible } = this.props;
 
+        return <div></div>;
+
         return (
             <div className = { `subject ${_visible ? 'visible' : ''}` }>
                 <span className = 'subject-text'>{ _subject }</span>

@@ -66,9 +66,6 @@ export default class RemoteVideoMenuButton extends Component<Props> {
                     className = { linkClassName }
                     id = { id }
                     onClick = { onClick }>
-                    <span className = 'popupmenu__icon'>
-                        <Icon src = { icon } />
-                    </span>
                     <span className = 'popupmenu__text'>
                         { buttonText }
                     </span>

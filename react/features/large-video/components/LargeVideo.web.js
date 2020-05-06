@@ -49,7 +49,6 @@ class LargeVideo extends Component<Props> {
                 <div id = 'remotePresenceMessage' />
                 <span id = 'remoteConnectionMessage' />
                 <div id = 'largeVideoElementsContainer'>
-                    <div id = 'largeVideoBackgroundContainer' />
 
                     {/*
                       * FIXME: the architecture of elements related to the large
@@ -60,6 +59,7 @@ class LargeVideo extends Component<Props> {
                       * largeVideoWrapper in order to hide/show them.
                       */}
                     <div id = 'largeVideoWrapper'>
+                        <div className="largeVideoBorder"></div>
                         <video
                             autoPlay = { !this.props._noAutoPlayVideo }
                             id = 'largeVideo'

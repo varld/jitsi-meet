@@ -231,7 +231,7 @@ StateListenerRegistry.register(
 
                 });
         } else {
-            const localParticipantId = getLocalParticipant(store.getState).id;
+            const localParticipantId = getLocalParticipant(store.getState).getId();
 
             // We left the conference, the local participant must be updated.
             _e2eeUpdated(store, conference, localParticipantId, false);

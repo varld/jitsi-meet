@@ -1,9 +1,15 @@
-import { Platform } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
-
 import '@webcomponents/url'; // Polyfill for URL constructor
 
-import Storage from './Storage';
+import { Platform } from '../../react';
+
+// XXX The library lib-jitsi-meet utilizes window.localStorage at the time of
+// this writing and, consequently, the browser-related polyfills implemented
+// here by the feature base/lib-jitsi-meet for the purposes of the library
+// lib-jitsi-meet are incomplete without the Web Storage API! Should the library
+// lib-jitsi-meet (and its dependencies) stop utilizing window.localStorage,
+// the following import may be removed:
+import '../../storage';
 
 /**
  * Gets the first common prototype of two specified Objects (treating the
@@ -374,7 +380,7 @@ function _visitNode(node, callback) {
     }
 
     // WebRTC
-    require('./webrtc');
+    require('./polyfills-webrtc');
 
     // CallStats
     //
@@ -419,19 +425,5 @@ function _visitNode(node, callback) {
     global.clearInterval = BackgroundTimer.clearInterval.bind(BackgroundTimer);
     global.setInterval = BackgroundTimer.setInterval.bind(BackgroundTimer);
     global.setTimeout = (fn, ms = 0) => BackgroundTimer.setTimeout(fn, ms);
-
-    // localStorage
-    if (typeof global.localStorage === 'undefined') {
-        global.localStorage = new Storage('@jitsi-meet/');
-    }
-
-    // sessionStorage
-    //
-    // Required by:
-    // - herment
-    // - Strophe
-    if (typeof global.sessionStorage === 'undefined') {
-        global.sessionStorage = new Storage();
-    }
 
 })(global || window || this); // eslint-disable-line no-invalid-this

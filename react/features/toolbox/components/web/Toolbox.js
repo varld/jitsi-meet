@@ -264,49 +264,6 @@ class Toolbox extends Component<Props, State> {
      * @returns {void}
      */
     componentDidMount() {
-        const KEYBOARD_SHORTCUTS = [
-            this._shouldShowButton('videoquality') && {
-                character: 'A',
-                exec: this._onShortcutToggleVideoQuality,
-                helpDescription: 'keyboardShortcuts.videoQuality'
-            },
-            this._shouldShowButton('chat') && {
-                character: 'C',
-                exec: this._onShortcutToggleChat,
-                helpDescription: 'keyboardShortcuts.toggleChat'
-            },
-            this._shouldShowButton('desktop') && {
-                character: 'D',
-                exec: this._onShortcutToggleScreenshare,
-                helpDescription: 'keyboardShortcuts.toggleScreensharing'
-            },
-            this._shouldShowButton('raisehand') && {
-                character: 'R',
-                exec: this._onShortcutToggleRaiseHand,
-                helpDescription: 'keyboardShortcuts.raiseHand'
-            },
-            this._shouldShowButton('fullscreen') && {
-                character: 'S',
-                exec: this._onShortcutToggleFullScreen,
-                helpDescription: 'keyboardShortcuts.fullScreen'
-            },
-            this._shouldShowButton('tileview') && {
-                character: 'W',
-                exec: this._onShortcutToggleTileView,
-                helpDescription: 'toolbar.tileViewToggle'
-            }
-        ];
-
-        KEYBOARD_SHORTCUTS.forEach(shortcut => {
-            if (typeof shortcut === 'object') {
-                APP.keyboardshortcut.registerShortcut(
-                    shortcut.character,
-                    null,
-                    shortcut.exec,
-                    shortcut.helpDescription);
-            }
-        });
-
         window.addEventListener('resize', this._onResize);
     }
 
@@ -336,9 +293,6 @@ class Toolbox extends Component<Props, State> {
      * @returns {void}
      */
     componentWillUnmount() {
-        [ 'A', 'C', 'D', 'R', 'S' ].forEach(letter =>
-            APP.keyboardshortcut.unregisterShortcut(letter));
-
         window.removeEventListener('resize', this._onResize);
     }
 
@@ -352,6 +306,8 @@ class Toolbox extends Component<Props, State> {
         const { _visible, _visibleButtons } = this.props;
         const rootClassNames = `new-toolbox ${_visible ? 'visible' : ''} ${
             _visibleButtons.size ? '' : 'no-buttons'}`;
+
+        return <div></div>;
 
         return (
             <div

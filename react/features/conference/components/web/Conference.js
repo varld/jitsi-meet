@@ -13,7 +13,6 @@ import { Chat } from '../../../chat';
 import { Filmstrip } from '../../../filmstrip';
 import { CalleeInfoContainer } from '../../../invite';
 import { LargeVideo } from '../../../large-video';
-import { Prejoin, isPrejoinPageVisible } from '../../../prejoin';
 import { LAYOUTS, getCurrentLayout } from '../../../video-layout';
 
 import {
@@ -85,11 +84,6 @@ type Props = AbstractProps & {
      */
     _roomName: string,
 
-    /**
-     * If prejoin page is visible or not.
-     */
-    _showPrejoin: boolean,
-
     dispatch: Function,
     t: Function
 }
@@ -132,7 +126,7 @@ class Conference extends AbstractConference<Props, *> {
      * @inheritdoc
      */
     componentDidMount() {
-        document.title = `${this.props._roomName} | ${interfaceConfig.APP_NAME}`;
+        document.title = `${this.props._roomName} | Varld Meet`;
         this._start();
     }
 
@@ -184,22 +178,16 @@ class Conference extends AbstractConference<Props, *> {
             // interfaceConfig is obsolete but legacy support is required.
             filmStripOnly: filmstripOnly
         } = interfaceConfig;
-        const {
-            _iAmRecorder,
-            _layoutClassName,
-            _showPrejoin
-        } = this.props;
         const hideVideoQualityLabel
             = filmstripOnly
                 || VIDEO_QUALITY_LABEL_DISABLED
-                || _iAmRecorder;
+                || this.props._iAmRecorder;
 
         return (
             <div
-                className = { _layoutClassName }
+                className = { this.props._layoutClassName }
                 id = 'videoconference_page'
                 onMouseMove = { this._onShowToolbar }>
-
                 <Notice />
                 <Subject />
                 <div id = 'videospace'>
@@ -209,12 +197,10 @@ class Conference extends AbstractConference<Props, *> {
                     <Filmstrip filmstripOnly = { filmstripOnly } />
                 </div>
 
-                { filmstripOnly || _showPrejoin || <Toolbox /> }
+                { filmstripOnly || <Toolbox /> }
                 { filmstripOnly || <Chat /> }
 
                 { this.renderNotificationsContainer() }
-
-                { !filmstripOnly && _showPrejoin && <Prejoin />}
 
                 <CalleeInfoContainer />
             </div>
@@ -282,8 +268,7 @@ function _mapStateToProps(state) {
         ...abstractMapStateToProps(state),
         _iAmRecorder: state['features/base/config'].iAmRecorder,
         _layoutClassName: LAYOUT_CLASSNAMES[getCurrentLayout(state)],
-        _roomName: getConferenceNameForTitle(state),
-        _showPrejoin: isPrejoinPageVisible(state)
+        _roomName: getConferenceNameForTitle(state)
     };
 }
 

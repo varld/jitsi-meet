@@ -73,11 +73,8 @@ class VolumeSlider extends Component<Props, State> {
      */
     render() {
         return (
-            <li className = 'popupmenu__item'>
+            <li className = 'popupmenu__item no-bg'>
                 <div className = 'popupmenu__contents'>
-                    <span className = 'popupmenu__icon'>
-                        <Icon src = { IconVolume } />
-                    </span>
                     <div className = 'popupmenu__slider_container'>
                         <input
                             className = 'popupmenu__slider'

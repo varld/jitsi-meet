@@ -1,7 +1,11 @@
 /* application specific logic */
 
+// import './config';
+// import './interface_config';
+// import './logging_config';
+
 import 'jquery';
-import 'jquery-contextmenu';
+// import 'jquery-contextmenu';
 import 'jQuery-Impromptu';
 
 import conference from './conference';
